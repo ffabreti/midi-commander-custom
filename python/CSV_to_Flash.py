@@ -41,7 +41,7 @@ def remove_comments(content):
     # Discard all comment lines
     no_comments = []
     for l in raw_content:
-        if "#" not in l:
+        if not l.strip(' "').startswith('#'):
             no_comments.append(l)
     return no_comments
 
@@ -50,8 +50,8 @@ no_comments = remove_comments(raw_content)
 # Split into individual table sections
 title_lines = []
 for i, l in enumerate(no_comments):
-    if '*' in l:
-        title_lines.append((l.replace(',',' ').strip(' *'), i))
+    if l.strip(' "').startswith('*'):
+        title_lines.append((l.replace(',','').strip(' *'), i))
 
 
 df_dic = {}
